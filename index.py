@@ -20,12 +20,13 @@ pygame.mixer.music.load(CAMINHO_MUSICA)
 pygame.mixer.music.play(-1)  # -1 faz com que a música toque em loop
 
 # Função para carregar GIFs
-def carregar_gif(caminho):
+def carregar_gif(caminho, largura, altura):
     gif = Image.open(caminho)
     frames = []
     for frame in range(gif.n_frames):
         gif.seek(frame)
         frame_image = gif.convert("RGBA")
+        frame_image = frame_image.resize((largura, altura), Image.LANCZOS)
         img_byte_arr = io.BytesIO()
         frame_image.save(img_byte_arr, format='PNG')
         img_byte_arr.seek(0)
@@ -33,40 +34,60 @@ def carregar_gif(caminho):
         frames.append(pygame_image)
     return frames
 
-# Carregar os GIFs
-frames_inicial = carregar_gif(CAMINHO_GIF)
-frames_principal = carregar_gif(CAMINHO_GIF_PRINCIPAL)
+# Carregar os GIFs com as dimensões especificadas
+frames_inicial = carregar_gif(CAMINHO_GIF, LARGURA_GIF, ALTURA_GIF)
+frames_principal = carregar_gif(CAMINHO_GIF_PRINCIPAL, LARGURA_GIF, ALTURA_GIF)
 
 # Caminhos das fichas
 ficha_caminhos = [
-    'src/imagens/1.png',
-    'src/imagens/3.png',
-    'src/imagens/4.png',
-    'src/imagens/5.png',
-    'src/imagens/6.png',
-    'src/imagens/7.png'
+    'src/imagens/1(1).png',
+    'src/imagens/2(2).png',
+    'src/imagens/3(3).png',
+    'src/imagens/4(4).png',
+    'src/imagens/5(5).png',
+    'src/imagens/6(6).png',
+    'src/imagens/7(7).png'
 ]
 
 # Opções de resposta para cada ficha
 opcoes_fichas = [
-    ["Ignorar os e-mails e continuar usando a caixa de entrada normalmente.", "Responder aos e-mails pedindo para que parem de enviar mensagens.", "Configurar filtros de spam no seu e-mail e evitar clicar em links suspeitos"],  # Opções para ficha 1
-    ["Ignorar os arquivos suspeitos e continuar usando o computador normalmente.", "Executar um software antivírus atualizado e considerar a formatação do disco rígido se necessário.", "Apagar manualmente os arquivos suspeitos e continuar trabalhando."],  # Opções para ficha 2
-    ["Clicar no link para verificar se o site é verdadeiro.", "Responder ao e-mail pedindo mais informações.", "Ligar diretamente para a instituição financeira usando um número de telefone oficial para confirmar a solicitação. "],  # Opções para ficha 3
-    ["Apenas usar o navegador em modo anônimo para acessar sites bancários.", "Verificar sempre o endereço completo do site antes de inserir qualquer informação sensível e usar uma conexão segura.", "Confiar em links enviados por e-mail para acessar o site bancário."],  # Opções para ficha 4
-    ["Permitir que os funcionários usem qualquer senha, mas monitorar logins falhados.", "Pedir aos funcionários para mudarem suas senhas para algo fácil de lembrar.", "Implementar políticas de senhas fortes e exigir autenticação multifator para todas as contas."],  # Opções para ficha 5
-    ["Realizar uma auditoria completa de segurança, identificar vulnerabilidades e implementar patches e medidas de segurança adicionais.", "Reiniciar todos os sistemas e esperar que o problema se resolva.", "Desconectar a rede da internet e não tomar nenhuma ação adicional."],  # Opções para ficha 6
+    ["Ignorar os e-mails e continuar usando a caixa de entrada normalmente.", "Configurar filtros de spam no seu e-mail e evitar clicar em links suspeitos.", "Responder aos e-mails pedindo para que parem de enviar mensagens."],  # Opções para ficha 1
+    ["Clicar no link para verificar se o site é verdadeiro.", "Ligar diretamente para a instituição financeira usando um número de telefone oficial para confirmar a solicitação.", "Responder ao e-mail pedindo mais informações."],  # Opções para ficha 2
+    ["Apenas usar o navegador em modo anônimo para acessar sites bancários.", "Verificar sempre o endereço completo do site antes de inserir qualquer informação sensível e usar uma conexão segura.", "Confiar em links enviados por e-mail para acessar o site bancário."],  # Opções para ficha 3
+    ["Ignorar os arquivos suspeitos e continuar usando o computador normalmente.", "Executar um software antivírus atualizado e \nconsiderar a formatação do disco rígido se necessário.", "Apagar manualmente os arquivos suspeitos e continuar trabalhando."],  # Opções para ficha 4
+    ["Reiniciar todos os sistemas e esperar que o problema se resolva.", "Realizar uma auditoria completa de segurança, identificar vulnerabilidades e implementar patches e medidas de segurança adicionais.", "Desconectar a rede da internet e não tomar nenhuma ação adicional."],  # Opções para ficha 5
+    ["Realizar uma auditoria completa de segurança para identificar a origem da invasão.", "Implementar políticas de segurança mais rígidas e treinar os funcionários sobre práticas seguras.", "Monitorar continuamente os sistemas para detectar e responder a atividades suspeitas."],  # Opções para ficha 6
+    ["Pedir aos funcionários para mudarem suas senhas para algo fácil de lembrar.", "Implementar políticas de senhas fortes e exigir autenticação multifator para todas as contas.", "Permitir que os funcionários usem qualquer senha, mas monitorar logins falhados."]  # Opções para ficha 7
+]
+
+# Respostas corretas para cada ficha
+respostas_corretas = [
+    "Configurar filtros de spam no seu e-mail e evitar clicar em links suspeitos.",  # Resposta correta para ficha 1
+    "Ligar diretamente para a instituição financeira usando um número de telefone oficial para confirmar a solicitação.",  # Resposta correta para ficha 2
+    "Verificar sempre o endereço completo do site antes de inserir qualquer informação sensível e usar uma conexão segura.",  # Resposta correta para ficha 3
+    "Executar um software antivírus atualizado e considerar a formatação do disco rígido se necessário.",  # Resposta correta para ficha 4
+    "Realizar uma auditoria completa de segurança, identificar vulnerabilidades e implementar patches e medidas de segurança adicionais.",  # Resposta correta para ficha 5
+    "Realizar uma auditoria completa de segurança para identificar a origem da invasão.",  # Resposta correta para ficha 6
+    "Implementar políticas de senhas fortes e exigir autenticação multifator para todas as contas."  # Resposta correta para ficha 7
 ]
 
 # Inicializar a ficha atual
 indice_ficha_atual = 0
 
+# Função para carregar e redimensionar uma imagem
+def carregar_e_redimensionar_imagem(caminho, largura, altura):
+    imagem = pygame.image.load(caminho).convert_alpha()
+    imagem_redimensionada = pygame.transform.scale(imagem, (largura, altura))
+    return imagem_redimensionada
 
-
-
-
-# Carregar a imagem PNG da ficha e do livro
-ficha_img = pygame.image.load(ficha_caminhos[indice_ficha_atual]).convert_alpha()
-livro_img = pygame.image.load(CAMINHO_SPRITE_LIVRO).convert_alpha()
+# Carregar a imagem PNG da ficha e do livro com as dimensões especificadas
+ficha_img = carregar_e_redimensionar_imagem(ficha_caminhos[indice_ficha_atual], LARGURA_FICHA, ALTURA_FICHA)
+livro_imgs = [
+    carregar_e_redimensionar_imagem(CAMINHO_SPRITE_LIVRO_1, LARGURA_LIVRO, ALTURA_LIVRO),
+    carregar_e_redimensionar_imagem(CAMINHO_SPRITE_LIVRO_2, LARGURA_LIVRO, ALTURA_LIVRO),
+    carregar_e_redimensionar_imagem(CAMINHO_SPRITE_LIVRO_3, LARGURA_LIVRO, ALTURA_LIVRO)
+]
+indice_livro_atual = 0
 
 # Inicializar variáveis para o arrasto
 arrastando_objeto = None
@@ -100,7 +121,10 @@ botao_sair = Button(text="SAIR", pos=(LARGURA_TELA // 2, ALTURA_TELA // 2 + 150)
 
 def carregar_ficha():
     global opcoes, opcao_selecionada
-    opcoes = opcoes_fichas[indice_ficha_atual]  # Carregar as opções para a ficha atual
+    if 0 <= indice_ficha_atual < len(opcoes_fichas):
+        opcoes = opcoes_fichas[indice_ficha_atual]  # Carregar as opções para a ficha atual
+    else:
+        opcoes = []
     opcao_selecionada = None
 
 def desenhar_ficha():
@@ -108,35 +132,45 @@ def desenhar_ficha():
     ficha_rect = pygame.Rect(ficha_pos[0], ficha_pos[1], ficha_img.get_width(), ficha_img.get_height())
     tela.blit(ficha_img, ficha_rect)
 
-    fonte = pygame.font.Font(None, 25)  # Fonte menor
+    fonte = pygame.font.Font(None, 25)  # Fonte intermediária
 
-    y_offset = ficha_pos[1] + ficha_img.get_height() // 2 + 30  # Posicionar mais abaixo na ficha
+    y_offset = ficha_pos[1] + ficha_img.get_height() // 2 + 85  # Posicionar mais acima na ficha
     for i, opcao in enumerate(opcoes):
         cor = PRETO if opcao != opcao_selecionada else (255, 0, 0)  # Texto preto
-        texto_opcao = fonte.render(opcao, True, cor)
-        texto_rect = texto_opcao.get_rect(center=(ficha_pos[0] + ficha_img.get_width() // 2, y_offset))
-        tela.blit(texto_opcao, texto_rect.topleft)
-        if texto_rect.collidepoint(pygame.mouse.get_pos()):
-            if pygame.mouse.get_pressed()[0]:  # Botão esquerdo do mouse
-                opcao_selecionada = opcao
-        y_offset += 40
+        linhas = quebrar_texto(opcao, fonte, ficha_img.get_width() - 20)  # Quebrar texto em linhas
+        for linha in linhas:
+            texto_opcao = fonte.render(linha, True, cor)
+            texto_rect = texto_opcao.get_rect(center=(ficha_pos[0] + ficha_img.get_width() // 2, y_offset))
+            tela.blit(texto_opcao, texto_rect.topleft)
+            y_offset += 25  # Espaçamento entre linhas
+        y_offset += 25  # Espaçamento entre opções
+
+def quebrar_texto(texto, fonte, largura_max):
+    palavras = texto.split(' ')
+    linhas = []
+    linha_atual = []
+    largura_linha_atual = 0
+
+    for palavra in palavras:
+        largura_palavra, _ = fonte.size(palavra + ' ')
+        if largura_linha_atual + largura_palavra > largura_max:
+            linhas.append(' '.join(linha_atual))
+            linha_atual = [palavra]
+            largura_linha_atual = largura_palavra
+        else:
+            linha_atual.append(palavra)
+            largura_linha_atual += largura_palavra
+
+    if linha_atual:
+        linhas.append(' '.join(linha_atual))
+
+    return linhas
 
 def desenhar_livro():
-    global livro_img, livro_pos
+    global livro_imgs, indice_livro_atual, livro_pos
+    livro_img = livro_imgs[indice_livro_atual]
     livro_rect = pygame.Rect(livro_pos[0], livro_pos[1], livro_img.get_width(), livro_img.get_height())
     tela.blit(livro_img, livro_rect)
-
-
-# Função para redimensionar a ficha
-def redimensionar_ficha(imagem, escala=1.5):
-    largura = int(imagem.get_width() * escala)
-    altura = int(imagem.get_height() * escala)
-    return pygame.transform.scale(imagem, (largura, altura))
-
-
-# Carregar a imagem PNG da ficha e redimensionar
-
-ficha_img = redimensionar_ficha(pygame.image.load(ficha_caminhos[indice_ficha_atual]).convert_alpha())
 
 def arrastar_objeto(evento, objeto_img, objeto_pos):
     global arrastando_objeto, offset_x, offset_y
@@ -203,12 +237,15 @@ def tela_resultado():
     tela.blit(resultado_surf, resultado_rect.topleft)
     pygame.display.flip()
     pygame.time.wait(5000)
+    pygame.quit()
+    sys.exit()
 
 def jogo_principal():
     global ficha_pos, livro_pos, ficha_exibida, livro_exibido, opcoes, opcao_selecionada
     global contador_frame_gif, atraso_frame_gif, opacidade_gif
     global indice_ficha_atual, ficha_img
     global fichas_resolvidas, respostas_certas
+    global indice_livro_atual
 
     rodando = True
     carregar_ficha()
@@ -225,7 +262,7 @@ def jogo_principal():
                 if evento.key == pygame.K_q:
                     ficha_exibida = not ficha_exibida
                     if ficha_exibida:
-                        ficha_img = pygame.image.load(ficha_caminhos[indice_ficha_atual]).convert_alpha()
+                        ficha_img = carregar_e_redimensionar_imagem(ficha_caminhos[indice_ficha_atual], LARGURA_FICHA, ALTURA_FICHA)
                 if evento.key == pygame.K_w:
                     livro_exibido = not livro_exibido
                 if evento.key == pygame.K_e:
@@ -233,18 +270,34 @@ def jogo_principal():
                     if opcao_selecionada:
                         # Atualizar o sistema de pontos e lógica de respostas
                         fichas_resolvidas += 1
-                        if opcao_selecionada == "Opção correta":  # Verificar se a opção selecionada é a correta
+                        if opcao_selecionada == respostas_corretas[indice_ficha_atual]:  # Verificar se a opção selecionada é a correta
                             respostas_certas += 1
                         if fichas_resolvidas < total_fichas:
                             indice_ficha_atual = (indice_ficha_atual + 1) % len(ficha_caminhos)
-                            ficha_img = pygame.image.load(ficha_caminhos[indice_ficha_atual]).convert_alpha()
+                            ficha_img = carregar_e_redimensionar_imagem(ficha_caminhos[indice_ficha_atual], LARGURA_FICHA, ALTURA_FICHA)
                             carregar_ficha()
                         else:
                             tela_resultado()
                             rodando = False
+                if evento.key == pygame.K_LEFT:
+                    indice_livro_atual = (indice_livro_atual - 1) % len(livro_imgs)
+                if evento.key == pygame.K_RIGHT:
+                    indice_livro_atual = (indice_livro_atual + 1) % len(livro_imgs)
+
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if ficha_exibida:
+                    y_offset = ficha_pos[1] + ficha_img.get_height() // 2 + 85
+                    for i, opcao in enumerate(opcoes):
+                        linhas = quebrar_texto(opcao, pygame.font.Font(None, 25), ficha_img.get_width() - 20)
+                        for linha in linhas:
+                            texto_rect = pygame.Rect(ficha_pos[0], y_offset, ficha_img.get_width(), 25)
+                            if texto_rect.collidepoint(evento.pos):
+                                opcao_selecionada = opcao
+                            y_offset += 25
+                        y_offset += 25
 
             arrastar_objeto(evento, ficha_img, ficha_pos)
-            arrastar_objeto(evento, livro_img, livro_pos)
+            arrastar_objeto(evento, livro_imgs[indice_livro_atual], livro_pos)
 
         contador_frame_gif += 1
         if contador_frame_gif >= atraso_frame_gif:
