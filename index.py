@@ -17,7 +17,7 @@ pygame.display.set_caption('Menu Principal')
 
 # Carregar música de fundo
 pygame.mixer.music.load(CAMINHO_MUSICA)
-pygame.mixer.music.play(-1)  # -1 faz com que a música toque em loop
+pygame.mixer.music.play(-1)  
 
 # Função para carregar GIFs
 def carregar_gif(caminho, largura, altura):
@@ -38,7 +38,6 @@ def carregar_gif(caminho, largura, altura):
 frames_inicial = carregar_gif(CAMINHO_GIF, LARGURA_GIF, ALTURA_GIF)
 frames_principal = carregar_gif(CAMINHO_GIF_PRINCIPAL, LARGURA_GIF, ALTURA_GIF)
 
-# Caminhos das fichas
 ficha_caminhos = [
     'src/imagens/1(1).png',
     'src/imagens/2(2).png',
@@ -46,18 +45,24 @@ ficha_caminhos = [
     'src/imagens/4(4).png',
     'src/imagens/5(5).png',
     'src/imagens/6(6).png',
-    'src/imagens/7(7).png'
+    'src/imagens/7(7).png',
+    'src/imagens/8(8).png',
+    'src/imagens/9(9).png',
+    'src/imagens/10(10).png'
 ]
 
 # Opções de resposta para cada ficha
 opcoes_fichas = [
     ["Ignorar os e-mails e continuar usando a caixa de entrada normalmente.", "Configurar filtros de spam no seu e-mail e evitar clicar em links suspeitos.", "Responder aos e-mails pedindo para que parem de enviar mensagens."],  # Opções para ficha 1
     ["Clicar no link para verificar se o site é verdadeiro.", "Ligar diretamente para a instituição financeira usando um número de telefone oficial para confirmar a solicitação.", "Responder ao e-mail pedindo mais informações."],  # Opções para ficha 2
-    ["Apenas usar o navegador em modo anônimo para acessar sites bancários.", "Verificar sempre o endereço completo do site antes de inserir qualquer informação sensível e usar uma conexão segura.", "Confiar em links enviados por e-mail para acessar o site bancário."],  # Opções para ficha 3
-    ["Ignorar os arquivos suspeitos e continuar usando o computador normalmente.", "Executar um software antivírus atualizado e \nconsiderar a formatação do disco rígido se necessário.", "Apagar manualmente os arquivos suspeitos e continuar trabalhando."],  # Opções para ficha 4
-    ["Reiniciar todos os sistemas e esperar que o problema se resolva.", "Realizar uma auditoria completa de segurança, identificar vulnerabilidades e implementar patches e medidas de segurança adicionais.", "Desconectar a rede da internet e não tomar nenhuma ação adicional."],  # Opções para ficha 5
-    ["Realizar uma auditoria completa de segurança para identificar a origem da invasão.", "Implementar políticas de segurança mais rígidas e treinar os funcionários sobre práticas seguras.", "Monitorar continuamente os sistemas para detectar e responder a atividades suspeitas."],  # Opções para ficha 6
-    ["Pedir aos funcionários para mudarem suas senhas para algo fácil de lembrar.", "Implementar políticas de senhas fortes e exigir autenticação multifator para todas as contas.", "Permitir que os funcionários usem qualquer senha, mas monitorar logins falhados."]  # Opções para ficha 7
+    ["Apenas usar o navegador em modo anônimo para acessar sites bancários.", "Verificar sempre o endereço completo do site \nantes de inserir qualquer informação sensível e usar uma conexão segura.", "Confiar em links enviados por e-mail para acessar o site bancário."],  # Opções para ficha 3
+    ["Ignorar os arquivos suspeitos e continuar usando o computador normalmente.", "Executar um software antivírus atualizado e considerar a \nformatação do disco rígido se necessário.", "Apagar manualmente os arquivos suspeitos e continuar trabalhando."],  # Opções para ficha 4
+    ["Reiniciar todos os sistemas e esperar que o problema se resolva.", "Realizar uma auditoria completa de segurança, identificar \nvulnerabilidades e implementar patches e medidas de segurança adicionais.", "Desconectar a rede da internet e não tomar nenhuma ação adicional."],  # Opções para ficha 5
+    ["Realizar uma auditoria completa de segurança para identificar a origem da invasão.", "Implementar políticas de segurança mais rígidas e treinar os \nfuncionários sobre práticas seguras.", "Monitorar continuamente os sistemas para detectar e responder a atividades suspeitas."],  # Opções para ficha 6
+    ["Pedir aos funcionários para mudarem suas senhas para algo fácil de lembrar.", "Implementar políticas de senhas fortes e exigir autenticação multifator para todas as contas.", "Permitir que os funcionários usem qualquer senha, mas monitorar logins falhados."],  # Opções para ficha 7
+    ["Ignorar as mensagens e continuar utilizando o aplicativo normalmente.", "Desinstalar o aplicativo suspeito, bloquear números de spam e considerar instalar um software de segurança confiável.", "Responder às mensagens de spam solicitando que parem de enviar os links."],  # Opções para ficha 8
+    ["Não se preocupar, pois a transação provavelmente foi um erro do sistema e será corrigida automaticamente.", "Contactar imediatamente seu banco para bloquear o cartão, alterar suas senhas de acesso, e monitorar atentamente suas contas bancárias para atividades suspeitas.", "Tentar realizar outra compra no mesmo site para verificar se o problema se repete."],  # Opções para ficha 9
+    ["Informar os funcionários afetados para que mudem suas senhas e continuar monitorando a situação.", "Isolar imediatamente os sistemas comprometidos, revogar os \nacessos das contas afetadas, e iniciar uma investigação completa para identificar e mitigar a vulnerabilidade.", "Aguardar até que o ataque termine para analisar os danos causados e depois tomar medidas corretivas."]  # Opções para ficha 10
 ]
 
 # Respostas corretas para cada ficha
@@ -68,7 +73,10 @@ respostas_corretas = [
     "Executar um software antivírus atualizado e considerar a formatação do disco rígido se necessário.",  # Resposta correta para ficha 4
     "Realizar uma auditoria completa de segurança, identificar vulnerabilidades e implementar patches e medidas de segurança adicionais.",  # Resposta correta para ficha 5
     "Realizar uma auditoria completa de segurança para identificar a origem da invasão.",  # Resposta correta para ficha 6
-    "Implementar políticas de senhas fortes e exigir autenticação multifator para todas as contas."  # Resposta correta para ficha 7
+    "Implementar políticas de senhas fortes e exigir autenticação multifator para todas as contas.",  # Resposta correta para ficha 7
+    "Desinstalar o aplicativo suspeito, bloquear números de spam e considerar instalar um software de segurança confiável.",  # Resposta correta para ficha 8
+    "Contactar imediatamente seu banco para bloquear o cartão, alterar suas senhas de acesso, e monitorar atentamente suas contas bancárias para atividades suspeitas.",  # Resposta correta para ficha 9
+    "Isolar imediatamente os sistemas comprometidos, revogar os acessos das contas afetadas, e iniciar uma investigação completa para identificar e mitigar a vulnerabilidade."  # Resposta correta para ficha 10
 ]
 
 # Inicializar a ficha atual
@@ -268,7 +276,6 @@ def jogo_principal():
                 if evento.key == pygame.K_e:
                     ficha_exibida = False
                     if opcao_selecionada:
-                        # Atualizar o sistema de pontos e lógica de respostas
                         fichas_resolvidas += 1
                         if opcao_selecionada == respostas_corretas[indice_ficha_atual]:  # Verificar se a opção selecionada é a correta
                             respostas_certas += 1
