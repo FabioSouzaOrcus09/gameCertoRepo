@@ -54,7 +54,7 @@ ficha_caminhos = [
 # Opções de resposta para cada ficha
 opcoes_fichas = [
     ["Ignorar os e-mails e continuar usando a caixa de entrada normalmente.", "Configurar filtros de spam no seu e-mail e evitar clicar em links suspeitos.", "Responder aos e-mails pedindo para que parem de enviar mensagens."],  # Opções para ficha 1
-    ["Clicar no link para verificar se o site é verdadeiro.", "Ligar diretamente para a instituição financeira usando um número de telefone oficial para confirmar a solicitação.", "Responder ao e-mail pedindo mais informações."],  # Opções para ficha 2
+    ["Clicar no link para verificar se o site é verdadeiro.", "Ligar diretamente para a instituição \nfinanceira usando um número de telefone oficial para confirmar a solicitação.", "Responder ao e-mail pedindo mais informações."],  # Opções para ficha 2
     ["Apenas usar o navegador em modo anônimo para acessar sites bancários.", "Verificar sempre o endereço completo do site \nantes de inserir qualquer informação sensível e usar uma conexão segura.", "Confiar em links enviados por e-mail para acessar o site bancário."],  # Opções para ficha 3
     ["Ignorar os arquivos suspeitos e continuar usando o computador normalmente.", "Executar um software antivírus atualizado e considerar a \nformatação do disco rígido se necessário.", "Apagar manualmente os arquivos suspeitos e continuar trabalhando."],  # Opções para ficha 4
     ["Reiniciar todos os sistemas e esperar que o problema se resolva.", "Realizar uma auditoria completa de segurança, identificar \nvulnerabilidades e implementar patches e medidas de segurança adicionais.", "Desconectar a rede da internet e não tomar nenhuma ação adicional."],  # Opções para ficha 5

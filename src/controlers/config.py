@@ -1,8 +1,8 @@
 # config.py
 
 # Configurações da tela
-LARGURA_TELA = 2000
-ALTURA_TELA = 1200
+LARGURA_TELA = 1918
+ALTURA_TELA = 1018
 
 # Configurações de cores
 PRETO = (0, 0, 0)
@@ -28,8 +28,8 @@ CAMINHO_FICHA_6 = 'src/imagens/6.png'
 CAMINHO_FICHA_7 = 'src/imagens/7.png'
 
 # Configurações de tamanho dos GIFs
-LARGURA_GIF = 2000
-ALTURA_GIF = 1100
+LARGURA_GIF = 1918
+ALTURA_GIF = 1018
 
 # Configurações de tamanho das fichas
 LARGURA_FICHA = 900
